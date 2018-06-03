@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      table {
+        width: 80%;
+        align: center;
+      }
+
+      table, th, td {
+        text-align: left;
+        padding: 5px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      
+      caption {
+        text-align: left;
+        text: bold;
+      }
+    </style>
+  </head>
+
+<body>
+
+<h3 style="color:blue;">Assignment 1</h3>
+<p style="font-size:14px;">
+  This is the 
+  <span style="color: #ff0000">first</span>
+  assignment.
+</p>
+
+<table>
+  <caption><b>Courses</b></caption>
+  <tr>
+    <th>Selection</th>
+    <th>CRN</th>
+    <th>Subj</th>
+    <th>Crse</th>
+    <th>Time</th>  
+  </tr>
+  <tr id = "row01">
+    <td>
+      <select id="mySelect1" onchange = "myFunction(this.id)">
+        <option value = "No selection"> No selection </option>
+        <option value = "Include"> Include </option>
+        <option value = "Exclude"> Exclude </option>
+      </select>
+    </td>
+    <td id="crn01">1</td>
+    <td>CSC</td>
+    <td>210</td>
+    <td>MWF, 9-9:50</td>    
+  </tr>
+  <tr id = "row02">
+    <td>
+      <select id="mySelect2" onchange = "myFunction(this.id)">
+        <option value="No selection">No selection </option>
+        <option value="Include">Include </option>
+        <option value="Exclude">Exclude </option>
+      </select>
+    </td>
+    <td id = "crn02">2</th>
+    <td>CSC</th> 
+    <td>210</th> 
+    <td>TR, 9:30-10:45</th>  
+  </tr>
+  <tr id = "row03">
+    <td>
+      <select id="mySelect3" onchange = "myFunction(this.id)">
+        <option value="No selection">No selection </option>
+        <option value="Include">Include </option>
+        <option value="Exclude">Exclude </option>
+        </select>
+    </td>
+    <td id = "crn03">3</td>
+    <td>ART</td>
+    <td>104</td>
+    <td>MWF, 10-10:50</td>
+  </tr>
+</table>
+<br>
+
+<table bgcolor = #FFFF00>
+  <caption><b>Schedule 1</b></caption>
+  <tr>
+    <th>CRN</th>
+    <th>Subj</th>
+    <th>Crse</th>
+    <th>Time</th>  
+  </tr>
+  <tr>
+    <td>1</th>
+    <td>CSC</th>
+    <td>210</th>
+    <td>MWF, 9-9:50</th>    
+  </tr>
+  <tr>
+    <td>3</th>
+    <td>ART</th> 
+    <td>104</th> 
+    <td>MWF, 10-10:50</th>  
+  </tr>
+</table>
+<br>
+
+<table>
+  <caption><b>Schedule 2</b></caption>
+  <tr>
+    <th>CRN</th>
+    <th>Subj</th>
+    <th>Crse</th>
+    <th>Time</th>  
+  </tr>
+  <tr>
+    <td>2</th>
+    <td>CSC</th>
+    <td>210</th>
+    <td>TR, 9:30-10:45</th>    
+  </tr>
+  <tr>
+    <td>3</th>
+    <td>ART</th> 
+    <td>104</th> 
+    <td>MWF, 10-10:50</th>  
+  </tr>
+</table>
+<br>
+
+<p id = "print"></p>
+
+<script>
+function myFunction(select) {
+	var x = document.getElementById(select).value;
+	if (select === "mySelect1") {
+		var crn = document.getElementById("crn01").innerHTML;
+		if (x === "Include") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row01").style.backgroundColor="lightgreen";
+   			document.getElementById("row01").style.opacity="1.0";
+		}
+		if (x === "Exclude") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row01").style.backgroundColor="red";
+   			document.getElementById("row01").style.opacity="0.6";
+		}
+		if (x === "No selection") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row01").style.backgroundColor="white";
+   			document.getElementById("row01").style.opacity="1.0";
+		}			
+	}
+	if (select === "mySelect2") {
+		var crn = document.getElementById("crn02").innerHTML;
+		if (x === "Include") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row02").style.backgroundColor="lightgreen";
+   			document.getElementById("row02").style.opacity="1.0";
+		}
+		if (x === "Exclude") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row02").style.backgroundColor="red";
+   			document.getElementById("row02").style.opacity="0.6";
+		}
+		if (x === "No selection") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row02").style.backgroundColor="white";
+   			document.getElementById("row02").style.opacity="1.0";
+		}			
+	}
+	if (select === "mySelect3") {
+		var crn = document.getElementById("crn03").innerHTML;
+		if (x === "Include") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row03").style.backgroundColor="lightgreen";
+   			document.getElementById("row03").style.opacity="1.0";
+		}
+		if (x === "Exclude") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row03").style.backgroundColor="red";
+   			document.getElementById("row03").style.opacity="0.6";
+		}
+		if (x === "No selection") {
+			document.getElementById("print").innerHTML = "CRN: " + crn;
+			document.getElementById("row03").style.backgroundColor="white";
+   			document.getElementById("row03").style.opacity="1.0";
+		}			
+	}
+}
+</script>
+</body>
+</html>
