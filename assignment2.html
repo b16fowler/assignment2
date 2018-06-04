@@ -41,7 +41,7 @@
   </tr>
   <tr id = "row01">
     <td>
-      <select id="mySelect1" onchange = "myFunction(this.id)">
+      <select id="mySelect1" onchange = "myFunction(this.id, 'row01', 'crn01')">
         <option value = "No selection"> No selection </option>
         <option value = "Include"> Include </option>
         <option value = "Exclude"> Exclude </option>
@@ -54,7 +54,7 @@
   </tr>
   <tr id = "row02">
     <td>
-      <select id="mySelect2" onchange = "myFunction(this.id)">
+      <select id="mySelect2" onchange = "myFunction(this.id, 'row02', 'crn02')">
         <option value="No selection">No selection </option>
         <option value="Include">Include </option>
         <option value="Exclude">Exclude </option>
@@ -67,7 +67,7 @@
   </tr>
   <tr id = "row03">
     <td>
-      <select id="mySelect3" onchange = "myFunction(this.id)">
+      <select id="mySelect3" onchange = "myFunction(this.id, 'row03', 'crn03')">
         <option value="No selection">No selection </option>
         <option value="Include">Include </option>
         <option value="Exclude">Exclude </option>
@@ -130,62 +130,24 @@
 <p id = "print"></p>
 
 <script>
-function myFunction(select) {
+function myFunction(select, rowId, crnId) {
 	var x = document.getElementById(select).value;
-	if (select === "mySelect1") {
-		var crn = document.getElementById("crn01").innerHTML;
-		if (x === "Include") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row01").style.backgroundColor="lightgreen";
-   			document.getElementById("row01").style.opacity="1.0";
-		}
-		if (x === "Exclude") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row01").style.backgroundColor="red";
-   			document.getElementById("row01").style.opacity="0.6";
-		}
-		if (x === "No selection") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row01").style.backgroundColor="white";
-   			document.getElementById("row01").style.opacity="1.0";
-		}			
+    var crn = document.getElementById(crnId).innerHTML;
+	document.getElementById("print").innerHTML = "CRN: " + crn;
+	if (x === "Include") {
+		document.getElementById(rowId).style.backgroundColor="lightgreen";
+   		document.getElementById(rowId).style.opacity="1.0";
 	}
-	if (select === "mySelect2") {
-		var crn = document.getElementById("crn02").innerHTML;
-		if (x === "Include") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row02").style.backgroundColor="lightgreen";
-   			document.getElementById("row02").style.opacity="1.0";
-		}
-		if (x === "Exclude") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row02").style.backgroundColor="red";
-   			document.getElementById("row02").style.opacity="0.6";
-		}
-		if (x === "No selection") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row02").style.backgroundColor="white";
-   			document.getElementById("row02").style.opacity="1.0";
-		}			
+	if (x === "Exclude") {
+		document.getElementById("print").innerHTML = "CRN: " + crn;
+		document.getElementById(rowId).style.backgroundColor="red";
+   		document.getElementById(rowId).style.opacity="0.6";
 	}
-	if (select === "mySelect3") {
-		var crn = document.getElementById("crn03").innerHTML;
-		if (x === "Include") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row03").style.backgroundColor="lightgreen";
-   			document.getElementById("row03").style.opacity="1.0";
-		}
-		if (x === "Exclude") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row03").style.backgroundColor="red";
-   			document.getElementById("row03").style.opacity="0.6";
-		}
-		if (x === "No selection") {
-			document.getElementById("print").innerHTML = "CRN: " + crn;
-			document.getElementById("row03").style.backgroundColor="white";
-   			document.getElementById("row03").style.opacity="1.0";
-		}			
-	}
+	if (x === "No selection") {
+		document.getElementById("print").innerHTML = "CRN: " + crn;
+		document.getElementById(rowId).style.backgroundColor="white";
+   		document.getElementById(rowId).style.opacity="1.0";
+	}			
 }
 </script>
 </body>
