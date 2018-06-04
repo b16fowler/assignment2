@@ -139,16 +139,40 @@ function myFunction(select, rowId, crnId) {
    		document.getElementById(rowId).style.opacity="1.0";
 	}
 	if (x === "Exclude") {
-		document.getElementById("print").innerHTML = "CRN: " + crn;
 		document.getElementById(rowId).style.backgroundColor="red";
    		document.getElementById(rowId).style.opacity="0.6";
 	}
 	if (x === "No selection") {
-		document.getElementById("print").innerHTML = "CRN: " + crn;
 		document.getElementById(rowId).style.backgroundColor="white";
    		document.getElementById(rowId).style.opacity="1.0";
 	}			
+
+    // get an array of table elements from the page
+    tables = document.getElementsByTagName("table");
+    t1 = tables[0];  // the first table (index 0)
+    var msg = "CRNs from first table:<br>";
+
+    // for each row index, starting with second row (index = 1) because
+    // we can skip the header row
+    for (var i = 1; i < t1.rows.length; i++) {
+
+        // get the crn from this row of the table, which is in the
+        // 2nd column (index = 1)
+        var row_crn = t1.rows[i].cells[1].innerHTML; 
+
+        // add crn to output string
+        if (crn == row_crn) {
+            msg = msg + row_crn + "(selected)<br>";
+        } else {
+            msg = msg + row_crn + "<br>";
+        }
+    } 
+
+    // display the information
+    document.getElementById("print").innerHTML = "CRN: " + crn + 
+                "<br><br>" + msg;;
 }
+
 </script>
 </body>
 </html>
