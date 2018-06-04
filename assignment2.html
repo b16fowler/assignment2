@@ -13,7 +13,22 @@
         border: 1px solid black;
         border-collapse: collapse;
       }
-      
+    
+      tr.exclude {
+        background-color: red;
+        opacity: 0.6;
+      }   
+
+      tr.noselection {
+        background-color: white;
+        opacity: 1.0;
+      }
+
+      tr.include {
+        background-color: lightgreen;
+        opacity: 1.0;
+      } 
+
       caption {
         text-align: left;
         text: bold;
@@ -60,10 +75,10 @@
         <option value="Exclude">Exclude </option>
       </select>
     </td>
-    <td id = "crn02">2</th>
-    <td>CSC</th> 
-    <td>210</th> 
-    <td>TR, 9:30-10:45</th>  
+    <td id = "crn02">2</td>
+    <td>CSC</td> 
+    <td>210</td> 
+    <td>TR, 9:30-10:45</td>  
   </tr>
   <tr id = "row03">
     <td>
@@ -90,16 +105,16 @@
     <th>Time</th>  
   </tr>
   <tr>
-    <td>1</th>
-    <td>CSC</th>
-    <td>210</th>
-    <td>MWF, 9-9:50</th>    
+    <td>1</td>
+    <td>CSC</td>
+    <td>210</td>
+    <td>MWF, 9-9:50</td>    
   </tr>
   <tr>
-    <td>3</th>
-    <td>ART</th> 
-    <td>104</th> 
-    <td>MWF, 10-10:50</th>  
+    <td>3</td>
+    <td>ART</td> 
+    <td>104</td> 
+    <td>MWF, 10-10:50</td>  
   </tr>
 </table>
 <br>
@@ -130,21 +145,22 @@
 <p id = "print"></p>
 
 <script>
+
 function myFunction(select, rowId, crnId) {
 	var x = document.getElementById(select).value;
     var crn = document.getElementById(crnId).innerHTML;
 	document.getElementById("print").innerHTML = "CRN: " + crn;
 	if (x === "Include") {
-		document.getElementById(rowId).style.backgroundColor="lightgreen";
-   		document.getElementById(rowId).style.opacity="1.0";
+        document.getElementById(rowId).className = "include";
+        styleOtherCourses(rowId, "include");
 	}
-	if (x === "Exclude") {
-		document.getElementById(rowId).style.backgroundColor="red";
-   		document.getElementById(rowId).style.opacity="0.6";
+	else if (x === "Exclude") {
+        document.getElementById(rowId).className = "exclude";
+        styleOtherCourses(rowId, "exclude");
 	}
-	if (x === "No selection") {
-		document.getElementById(rowId).style.backgroundColor="white";
-   		document.getElementById(rowId).style.opacity="1.0";
+	else if (x === "No selection") {
+        document.getElementById(rowId).className = "noselection";
+        styleOtherCourses(rowId, "no selection");
 	}			
 
     // get an array of table elements from the page
@@ -171,6 +187,47 @@ function myFunction(select, rowId, crnId) {
     // display the information
     document.getElementById("print").innerHTML = "CRN: " + crn + 
                 "<br><br>" + msg;;
+}
+
+// set style for rows having the same course as rowId
+// selected is either 'include' (other courses are excluded) or
+//     anything else (other course selections are enabled)
+function styleOtherCourses(rowId,selectedType) {
+
+    // get selected course, combining Subj and Crse (e.g., CSC-210) 
+    var row = document.getElementById(rowId)
+    var selectedCourse = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
+
+    // look at top table
+    tables = document.getElementsByTagName("table");
+    t1 = tables[0];
+    
+    // for each row of this table, skipping the header row 
+    for (var i = 1; i < t1.rows.length; i++) {
+        row = t1.rows[i];
+
+        // get the course (e.g., CSC-210)
+        var course = row.cells[2].innerHTML + "-" + row.cells[3].innerHTML;
+
+        // if this course matches the selected course (and has a different
+        // row id)
+        if (selectedCourse == course && row.id != rowId) {
+
+            // get id of corresponding dropdown (this works because ids are
+            // of the form "mySelect#" where # is the crn
+            var crn = row.cells[1].innerHTML;
+            var selectId = "mySelect" + crn;
+
+            // if user has included a course, exclude and disable the others
+            if (selectedType == "include") {
+                document.getElementById(row.id).className = "exclude";
+                document.getElementById(selectId).value = "Exclude";
+                document.getElementById(selectId).disabled = true;
+            } else { // otherwise, just enable the drop downs
+                document.getElementById(selectId).disabled = false;
+            }
+        }
+    }
 }
 
 </script>
